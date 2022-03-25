@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script>
+    function loaded() {
+        console.log("loaded");
+    }
+</script>
+
+<div id="container">
+    <script>loaded()</script>
+    <img id="main-title" src="~/Content/assets/black_jacklogo.svg"/>
+    <button id="game-start" class="menu-btn" onclick="window.location.href = '@Url.Action("game_setup")'">Game Start</button>
+</div>

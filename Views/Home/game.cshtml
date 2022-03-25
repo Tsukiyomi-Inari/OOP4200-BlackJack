@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "game";
+}
+
+<style>
+    svg {
+        width: 100vw;
+        height: 100vw;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1000;
+    }
+
+    ellipse {
+        stroke: #300000;
+        fill: #115c16;
+    }
+</style>
+
+<svg>
+    <ellipse cx="50" cy="0" rx="45" ry="45" stroke-width="150"/>
+</svg>
+
+<script>
+    function renderTable() {
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+        const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+        let c = document.querySelector("ellipse");
+
+        c.setAttribute("cx", vw / 2);
+        c.setAttribute("rx", vw / 2 - (c.getAttribute("stroke-width") / 2));
+        c.setAttribute("ry", vh * 0.85);
+    }
+
+    renderTable();
+    window.onresize = renderTable;
+</script>
+
+<div id="game-menu">
+	<div id="game-control">
+        <button id="hit-btn" class="game-btn">Hit</button>
+        <button id="stand-btn" class="game-btn">Stand</button>
+	</div>
+	<div id="game-wager">
+        <button id="wager-btn" class="game-btn">Wager</button>
+		<h6 id="player-bank">$<span id="player-bank-value">100,000</span><img src="~/Content/assets/coins.svg"/></h6>
+	</div>
+</div>
+

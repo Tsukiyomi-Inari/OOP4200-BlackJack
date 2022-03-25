@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Game Setup";
+}
+
+<div id="setup-container">
+	<div class="setup-background">
+        <div id="btn-group1">
+            <button class="about-btn" onclick="window.location.href = '@Url.Action("About")'">About</button>
+            <button class="about-btn" onclick="window.location.href = '@Url.Action("game_rules")'">Game Rules</button>
+            <button class="about-btn" onclick="window.location.href = '@Url.Action("Index")'">Back</button>
+        </div>
+		<div id="btn-group-2">
+            <div class="about-btn-border" data-selected="false">
+                <button class="about-btn">Multi-player</button>
+            </div>
+			<button class="about-btn" data-visible="hidden" onclick="window.location.href = '@Url.Action("")'">Start</button>
+            <div class="about-btn-border" data-selected="false">
+                <button class="about-btn">Single Player</button>
+            </div>
+		</div>
+		@*<div id="img-up"> <img src="~/Content/assets/black_jacklogo.png"  alt="Black Jack Logo"/> </div>*@
+	</div>
+	<script>
+		const buttons = document.querySelectorAll("#btn-group-2")[0].childNodes;
+		buttons[1].addEventListener("click", style_selected);
+        buttons[5].addEventListener("click", style_selected);
+		function style_selected(e) {
+			let target = e.target;
+			buttons[1].setAttribute("data-selected", "false");
+			buttons[5].setAttribute("data-selected", "false");
+			target.parentNode.setAttribute("data-selected", "true");
+			buttons[3].setAttribute("data-visible", "visible");
+		}
+	</script>
+</div>
