@@ -29,6 +29,7 @@
         const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
         let c = document.querySelector("ellipse");
 
+        c.setAttribute("stroke-width", vw * 0.100334448);
         c.setAttribute("cx", vw / 2);
         c.setAttribute("rx", vw / 2 - (c.getAttribute("stroke-width") / 2));
         c.setAttribute("ry", vh * 0.85);
@@ -37,6 +38,71 @@
     renderTable();
     window.onresize = renderTable;
 </script>
+
+<div class="game-area">
+    <div id="dealer-hand">
+        <div class="hand" id="dealer-hand">
+            <div class="card" data-suit="spade" data-value="7">
+                <span class="value">K</span>
+            </div>
+            <div class="card" data-suit="diamond" data-value="7">
+                <span class="value">Q</span>
+            </div>
+            <div class="card" data-suit="heart" data-value="7">
+                <span class="value">J</span>
+            </div>
+            <div class="card" data-suit="club" data-value="7">
+                <span class="value">A</span>
+            </div>
+        </div>
+    </div>
+    <div class="player-hands">
+        <div class="hand">
+            <div class="card" data-suit="spade" data-value="7">
+                <span class="value">K</span>
+            </div>
+            <div class="card" data-suit="diamond" data-value="7">
+                <span class="value">Q</span>
+            </div>
+            <div class="card" data-suit="heart" data-value="7">
+                <span class="value">J</span>
+            </div>
+            <div class="card" data-suit="club" data-value="7">
+                <span class="value">A</span>
+            </div>
+        </div>
+
+        <div class="hand">
+            <div class="card" data-suit="spade" data-value="7">
+                <span class="value">K</span>
+            </div>
+            <div class="card" data-suit="diamond" data-value="7">
+                <span class="value">Q</span>
+            </div>
+            <div class="card" data-suit="heart" data-value="7">
+                <span class="value">J</span>
+            </div>
+            <div class="card" data-suit="club" data-value="7">
+                <span class="value">A</span>
+            </div>
+        </div>
+
+        <div class="hand">
+            <div class="card" data-suit="spade" data-value="7">
+                <span class="value">10</span>
+            </div>
+            <div class="card" data-suit="diamond" data-value="7">
+                <span class="value">Q</span>
+            </div>
+            <div class="card" data-suit="heart" data-value="7">
+                <span class="value">J</span>
+            </div>
+            <div class="card" data-suit="club" data-value="7">
+                <span class="value">A</span>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div id="game-menu">
 	<div id="game-control">

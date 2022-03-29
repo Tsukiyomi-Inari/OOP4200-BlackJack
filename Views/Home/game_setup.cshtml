@@ -10,26 +10,119 @@
             <button class="about-btn" onclick="window.location.href = '@Url.Action("Index")'">Back</button>
         </div>
 		<div id="btn-group-2">
-            <div class="about-btn-border" data-selected="false">
-                <button class="about-btn">Multi-player</button>
-            </div>
-			<button class="about-btn" data-visible="hidden" onclick="window.location.href = '@Url.Action("")'">Start</button>
-            <div class="about-btn-border" data-selected="false">
-                <button class="about-btn">Single Player</button>
-            </div>
+			<button class="about-btn" onclick=startAnimation()>Play</button>
 		</div>
-		@*<div id="img-up"> <img src="~/Content/assets/black_jacklogo.png"  alt="Black Jack Logo"/> </div>*@
 	</div>
-	<script>
-		const buttons = document.querySelectorAll("#btn-group-2")[0].childNodes;
-		buttons[1].addEventListener("click", style_selected);
-        buttons[5].addEventListener("click", style_selected);
-		function style_selected(e) {
-			let target = e.target;
-			buttons[1].setAttribute("data-selected", "false");
-			buttons[5].setAttribute("data-selected", "false");
-			target.parentNode.setAttribute("data-selected", "true");
-			buttons[3].setAttribute("data-visible", "visible");
-		}
-	</script>
 </div>
+
+<div class="pop_up-container">
+    <div id="pop_up-row" class="row">
+        <div class="pop_up">
+            <i class="fas fa-times pop_up-close link_hover" onclick=close_popup()></i>
+            <h1 class="pop_up-title">Game Settings</h1>
+            <div class="pop_up-body">
+                <div class="setting">
+                    <span class="setting-title">Number of Human Players:</span>
+                    <span class="setting-value-grp">
+                        <button class="setting-value-btn" onclick=changeNumHumans(-1)>-</button>
+                        <span class="setting-amount" id="num-humans">1</span>
+                        <button class="setting-value-btn"  onclick=changeNumHumans(1)>+</button>
+                    </span>
+                </div>
+                <div class="setting">
+                    <span class="setting-title">Number of AI Players:</span>
+                    <span class="setting-value-grp">
+                        <button class="setting-value-btn" onclick=changeNumAi(-1)>-</button>
+                        <span class="setting-amount" id="num-ai">1</span>
+                        <button class="setting-value-btn" onclick=changeNumAi(1)>+</button>
+                    </span>
+                </div>
+            </div>
+            <div class="btn-confirm--container">
+                <button class="btn-confirm" onclick=confirmSettings()>Confirm Settings</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const popup = document.querySelector(".pop_up-container");
+    const popup_box = document.querySelector("#pop_up-row");
+    const popup_title = document.querySelector(".pop_up-title");
+    const popup_body = document.querySelector(".pop_up-body");
+
+    const startAnimation = () => {
+        popup.classList.add("animate");
+        popup_box.classList.add("animate");
+    };
+
+    const close_popup = () => {
+        popup.classList.remove("animate");
+        popup_box.classList.remove("animate");
+    };
+
+    const humanDecrement = document.querySelectorAll(".setting-value-btn")[0];
+    const numHumanPlayers = document.querySelector("#num-humans");
+    const humanIncrement = document.querySelectorAll(".setting-value-btn")[1];
+
+    const aiDecrement = document.querySelectorAll(".setting-value-btn")[2];
+    const numAiPlayers = document.querySelector("#num-ai");
+    const aiIncrement = document.querySelectorAll(".setting-value-btn")[3];
+
+    const PLAYER_CAP = 3;
+
+    function checkSum() {
+        let ai = parseInt(numAiPlayers.innerHTML);
+        let human = parseInt(numHumanPlayers.innerHTML);
+
+        return ai + human >= 1 && ai + human < PLAYER_CAP && human > 0;
+    }
+
+    function changeNumHumans(amount) {
+        let value = parseInt(numHumanPlayers.innerHTML);
+        
+        if (value == 1) {
+            if (amount == 1) {
+                value++;
+            }
+        }
+        else if (value == 3) {
+            if (amount == -1) {
+                value--;
+            }
+        }
+        else {
+            value += amount;
+        }
+
+        if (checkSum() || amount == -1) {
+            numHumanPlayers.innerHTML = value;
+        }
+    }
+
+    function changeNumAi(amount) {
+        let value = parseInt(numAiPlayers.innerHTML);
+        if (value == 0) {
+            if (amount == 1) {
+                value++;
+            }
+        }
+        else if (value == 2) {
+            if (amount == -1) {
+                value--;
+            }
+        }
+        else {
+            value += amount;
+        }
+
+        if (checkSum() || amount == -1) {
+            numAiPlayers.innerHTML = value;
+        }
+    }
+
+    function confirmSettings() {
+        console.log("Humans:", parseInt(numHumanPlayers.innerHTML), "AI:", parseInt(numAiPlayers.innerHTML));
+        close_popup();
+    }
+</script>
