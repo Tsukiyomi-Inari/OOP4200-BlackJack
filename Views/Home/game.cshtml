@@ -23,82 +23,47 @@
     <ellipse cx="50" cy="0" rx="45" ry="45" stroke-width="150"/>
 </svg>
 
-<script>
-    function renderTable() {
-        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-        const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
-        let c = document.querySelector("ellipse");
-
-        c.setAttribute("stroke-width", vw * 0.100334448);
-        c.setAttribute("cx", vw / 2);
-        c.setAttribute("rx", vw / 2 - (c.getAttribute("stroke-width") / 2));
-        c.setAttribute("ry", vh * 0.85);
-    }
-
-    renderTable();
-    window.onresize = renderTable;
-</script>
-
 <div class="game-area">
-    <div id="dealer-hand">
-        <div class="hand" id="dealer-hand">
-            <div class="card" data-suit="spade" data-value="7">
-                <span class="value">K</span>
+    <div class="hand--container">
+        <div class="hand" data-is-turn="true">
+            <div class="card" data-suit="diamond" data-value="A">
+                <span class="value"></span>
             </div>
-            <div class="card" data-suit="diamond" data-value="7">
-                <span class="value">Q</span>
-            </div>
-            <div class="card" data-suit="heart" data-value="7">
-                <span class="value">J</span>
-            </div>
-            <div class="card" data-suit="club" data-value="7">
-                <span class="value">A</span>
+            <div class="card" data-suit="spade" data-value="K">
+                <span class="value"></span>
             </div>
         </div>
     </div>
-    <div class="player-hands">
-        <div class="hand">
-            <div class="card" data-suit="spade" data-value="7">
-                <span class="value">K</span>
+
+    <div class="hand--container">
+        <div class="hand" data-is-turn="false">
+            <div class="card" data-suit="diamond" data-value="10">
+                <span class="value"></span>
             </div>
-            <div class="card" data-suit="diamond" data-value="7">
-                <span class="value">Q</span>
-            </div>
-            <div class="card" data-suit="heart" data-value="7">
-                <span class="value">J</span>
-            </div>
-            <div class="card" data-suit="club" data-value="7">
-                <span class="value">A</span>
+            <div class="card" data-suit="heart" data-value="3">
+                <span class="value"></span>
             </div>
         </div>
+    </div>
 
-        <div class="hand">
-            <div class="card" data-suit="spade" data-value="7">
-                <span class="value">K</span>
+    <div class="hand--container">
+        <div class="hand" data-is-turn="false">
+            <div class="card" data-suit="club" data-value="4">
+                <span class="value"></span>
             </div>
-            <div class="card" data-suit="diamond" data-value="7">
-                <span class="value">Q</span>
-            </div>
-            <div class="card" data-suit="heart" data-value="7">
-                <span class="value">J</span>
-            </div>
-            <div class="card" data-suit="club" data-value="7">
-                <span class="value">A</span>
+            <div class="card" data-suit="club" data-value="J">
+                <span class="value"></span>
             </div>
         </div>
+    </div>
 
-        <div class="hand">
-            <div class="card" data-suit="spade" data-value="7">
-                <span class="value">10</span>
+    <div class="hand--container" id="dealer-hand">
+        <div class="hand" data-is-turn="false">
+            <div class="card" data-suit="spade" data-value="5">
+                <span class="value"></span>
             </div>
-            <div class="card" data-suit="diamond" data-value="7">
-                <span class="value">Q</span>
-            </div>
-            <div class="card" data-suit="heart" data-value="7">
-                <span class="value">J</span>
-            </div>
-            <div class="card" data-suit="club" data-value="7">
-                <span class="value">A</span>
+            <div class="card" data-suit="diamond" data-value="9">
+                <span class="value"></span>
             </div>
         </div>
     </div>
@@ -115,3 +80,46 @@
 	</div>
 </div>
 
+
+
+<script>
+    function renderTable() {
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+        const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+        let c = document.querySelector("ellipse");
+
+        c.setAttribute("stroke-width", vw * 0.100334448);
+        c.setAttribute("cx", vw / 2);
+        c.setAttribute("rx", vw / 2 - (c.getAttribute("stroke-width") / 2));
+        c.setAttribute("ry", vh * 0.85);
+    }
+
+    function generateCard(suit, value) {
+        let card = document.createElement("div");
+        let span = document.createElement("span");
+
+        card.classList = "card";
+        card.setAttribute("data-suit", suit);
+        card.setAttribute("data-value", value);
+
+        span.classList = "value";
+        span.innerHTML = value;
+        card.appendChild(span);
+        return card;
+    }
+
+    function setCardValues() {
+        let cards = document.querySelectorAll(".card");
+
+        cards.forEach(card => {
+            card.childNodes[1].innerHTML = card.getAttribute("data-value");
+        });
+    }
+
+    renderTable();
+    setCardValues();
+    let dealerHand = document.querySelector("#dealer-hand").childNodes[1];
+    dealerHand.appendChild(generateCard("spade", 8));
+
+    window.onresize = renderTable;
+</script>
